@@ -19,23 +19,23 @@ include ${PETSC_DIR}/lib/petsc/conf/rules
 #Location of netCDF include and lib directories
 #*******************************************************************************
 NETCDF_LIB=-L ${TACC_NETCDF_LIB} -lnetcdff
-NETCDF_INCLUDE=-I ${TACC_NETCDF_INC}
+NETCDF_INCLUDE=-I${TACC_NETCDF_INC}
 
 
 #*******************************************************************************
-#Get version of RAPID 
+#Get version of RAPID
 #*******************************************************************************
 RAPID_VERSION="'$(shell ./rapid_version.sh)'"
 
 
 #*******************************************************************************
-#makefile instructions 
+#makefile instructions
 #*******************************************************************************
 
 #-------------------------------------------------------------------------------
 #Test that environment variables are properly read by make
 #-------------------------------------------------------------------------------
-dummy: 
+dummy:
 	echo ${FLINKER}
 
 #-------------------------------------------------------------------------------
@@ -152,13 +152,13 @@ rapid:	rapid_main.o \
 	rapid_cov_mat.o \
 	rapid_var.o \
 	${PETSC_LIB} ${NETCDF_LIB}
-	${RM} *.o *.mod 
+	${RM} *.o *.mod
 	ln -sf ../src/rapid ../tst/rapid
 
 #-------------------------------------------------------------------------------
 #Compile RAPID
 #-------------------------------------------------------------------------------
-rapid_main.o: 			rapid_main.F90 rapid_var.mod 
+rapid_main.o: 			rapid_main.F90 rapid_var.mod
 	${FLINKER} -c rapid_main.F90 ${PETSC_FC_INCLUDES}
 
 rapid_final.o:			rapid_final.F90 rapid_var.mod
@@ -206,10 +206,10 @@ rapid_mus_mat.o: 		rapid_mus_mat.F90 rapid_var.mod
 rapid_hsh_mat.o: 		rapid_hsh_mat.F90 rapid_var.mod
 	${FLINKER} -c rapid_hsh_mat.F90 ${PETSC_FC_INCLUDES}
 
-rapid_get_Qdam.o: 		rapid_get_Qdam.F90 rapid_var.mod 
+rapid_get_Qdam.o: 		rapid_get_Qdam.F90 rapid_var.mod
 	${FLINKER} -c rapid_get_Qdam.F90 ${PETSC_FC_INCLUDES}
 
-rapid_set_Qext0.o: 		rapid_set_Qext0.F90 rapid_var.mod 
+rapid_set_Qext0.o: 		rapid_set_Qext0.F90 rapid_var.mod
 	${FLINKER} -c rapid_set_Qext0.F90 ${PETSC_FC_INCLUDES}
 
 rapid_close_Qfor_file.o: 	rapid_close_Qfor_file.F90 rapid_var.mod
@@ -222,19 +222,19 @@ rapid_close_Qobs_file.o: 	rapid_close_Qobs_file.F90 rapid_var.mod
 	${FLINKER} -c rapid_close_Qobs_file.F90
 
 rapid_close_Vlat_file.o: 	rapid_close_Vlat_file.F90 rapid_var.mod
-	${FLINKER} -c rapid_close_Vlat_file.F90 ${NETCDF_INCLUDE} 
+	${FLINKER} -c rapid_close_Vlat_file.F90 ${NETCDF_INCLUDE}
 
 rapid_close_Qfinal_file.o: 	rapid_close_Qfinal_file.F90 rapid_var.mod
-	${FLINKER} -c rapid_close_Qfinal_file.F90 ${NETCDF_INCLUDE} 
+	${FLINKER} -c rapid_close_Qfinal_file.F90 ${NETCDF_INCLUDE}
 
 rapid_close_Qinit_file.o: 	rapid_close_Qinit_file.F90 rapid_var.mod
-	${FLINKER} -c rapid_close_Qinit_file.F90 ${NETCDF_INCLUDE} 
+	${FLINKER} -c rapid_close_Qinit_file.F90 ${NETCDF_INCLUDE}
 
 rapid_close_Qout_file.o: 	rapid_close_Qout_file.F90 rapid_var.mod
-	${FLINKER} -c rapid_close_Qout_file.F90 ${NETCDF_INCLUDE} 
+	${FLINKER} -c rapid_close_Qout_file.F90 ${NETCDF_INCLUDE}
 
 rapid_close_V_file.o: 		rapid_close_V_file.F90 rapid_var.mod
-	${FLINKER} -c rapid_close_V_file.F90 ${NETCDF_INCLUDE} 
+	${FLINKER} -c rapid_close_V_file.F90 ${NETCDF_INCLUDE}
 
 rapid_meta_Vlat_file.o: 	rapid_meta_Vlat_file.F90 rapid_var.mod
 	${FLINKER} -c rapid_meta_Vlat_file.F90 ${PETSC_FC_INCLUDES} ${NETCDF_INCLUDE}
@@ -267,13 +267,13 @@ rapid_write_V_file.o: 		rapid_write_V_file.F90 rapid_var.mod
 	${FLINKER} -c rapid_write_V_file.F90 ${PETSC_FC_INCLUDES} ${NETCDF_INCLUDE}
 
 rapid_open_Qfor_file.o: 	rapid_open_Qfor_file.F90 rapid_var.mod
-	${FLINKER} -c rapid_open_Qfor_file.F90 
+	${FLINKER} -c rapid_open_Qfor_file.F90
 
 rapid_open_Qhum_file.o: 	rapid_open_Qhum_file.F90 rapid_var.mod
-	${FLINKER} -c rapid_open_Qhum_file.F90 
+	${FLINKER} -c rapid_open_Qhum_file.F90
 
 rapid_open_Qobs_file.o: 	rapid_open_Qobs_file.F90 rapid_var.mod
-	${FLINKER} -c rapid_open_Qobs_file.F90 
+	${FLINKER} -c rapid_open_Qobs_file.F90
 
 rapid_open_Vlat_file.o: 	rapid_open_Vlat_file.F90 rapid_var.mod
 	${FLINKER} -c rapid_open_Vlat_file.F90 ${NETCDF_INCLUDE}
@@ -304,7 +304,7 @@ rapid_create_obj.o: 		rapid_create_obj.F90 rapid_var.mod
 
 rapid_arrays.o:			rapid_arrays.F90 rapid_var.mod
 	${FLINKER} -c rapid_arrays.F90 ${PETSC_FC_INCLUDES}
-	
+
 rapid_read_namelist.o:		rapid_read_namelist.F90 rapid_var.mod
 	${FLINKER} -c rapid_read_namelist.F90
 
@@ -316,14 +316,13 @@ rapid_kf_cov_mat.o: 		rapid_kf_cov_mat.F90 rapid_var.mod
 
 rapid_cov_mat.o: 		rapid_cov_mat.F90 rapid_var.mod
 	${FLINKER} -c rapid_cov_mat.F90 ${PETSC_FC_INCLUDES}
-	
-rapid_var.o rapid_var.mod:	rapid_var.F90
-	${FLINKER} -c rapid_var.F90 ${PETSC_FC_INCLUDES} 
 
-	
+rapid_var.o rapid_var.mod:	rapid_var.F90
+	${FLINKER} -c rapid_var.F90 ${PETSC_FC_INCLUDES}
+
+
 #-------------------------------------------------------------------------------
 #Clean
 #-------------------------------------------------------------------------------
 clean::
 	${RM} *.o *.mod rapid ../tst/rapid
-

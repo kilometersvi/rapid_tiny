@@ -21,14 +21,30 @@
 #*******************************************************************************
 #Operating System
 #*******************************************************************************
-FROM debian:buster-slim
+FROM debian:buster-slim as builder
+
+
+#-------------------------------------------------------------------------------
+#Update environment (ENV variables are available in Docker images & containers)
+#-------------------------------------------------------------------------------
+ENV  TACC_NETCDF_DIR=$INSTALLZ_DIR/netcdf-install
+ENV  TACC_NETCDF_LIB=$TACC_NETCDF_DIR/lib
+ENV  TACC_NETCDF_INC=$TACC_NETCDF_DIR/include
+ENV  LD_LIBRARY_PATH=$TACC_NETCDF_LIB
+ENV  PATH=$PATH:$TACC_NETCDF_DIR/bin
+#netCDF
+
+ENV  PETSC_DIR=$INSTALLZ_DIR/petsc-3.13.0
+ENV  PETSC_ARCH=linux-gcc-c
+ENV  PATH=$PATH:$PETSC_DIR/$PETSC_ARCH/bin
+#PETSc
 
 
 #*******************************************************************************
 #Copy files into Docker image (this ignores the files listed in .dockerignore)
 #*******************************************************************************
 WORKDIR /home/rapid/
-COPY . . 
+COPY . .
 
 
 #*******************************************************************************
@@ -46,26 +62,12 @@ RUN  apt-get update && \
 #-------------------------------------------------------------------------------
 #Install other software
 #-------------------------------------------------------------------------------
-ENV  INSTALLZ_DIR=/home/installz
+
 #Directory where software is installed
+ENV  INSTALLZ_DIR=/home/installz
 
 RUN  mkdir $INSTALLZ_DIR && \
      ./rapid_install_prereqs.sh -i=$INSTALLZ_DIR
-
-#-------------------------------------------------------------------------------
-#Update environment (ENV variables are available in Docker images & containers)
-#-------------------------------------------------------------------------------
-ENV  TACC_NETCDF_DIR=$INSTALLZ_DIR/netcdf-install
-ENV  TACC_NETCDF_LIB=$TACC_NETCDF_DIR/lib
-ENV  TACC_NETCDF_INC=$TACC_NETCDF_DIR/include
-ENV  LD_LIBRARY_PATH=$TACC_NETCDF_LIB
-ENV  PATH=$PATH:$TACC_NETCDF_DIR/bin
-#netCDF
-
-ENV  PETSC_DIR=$INSTALLZ_DIR/petsc-3.13.0
-ENV  PETSC_ARCH=linux-gcc-c
-ENV  PATH=$PATH:$PETSC_DIR/$PETSC_ARCH/bin
-#PETSc
 
 
 #*******************************************************************************

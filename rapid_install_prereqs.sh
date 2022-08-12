@@ -36,7 +36,7 @@
 #-------------------------------------------------------------------------------
 INSTALLZ_DIR=$HOME/installz
 #Default installation directory. This can be set from the command line using the
-#'-i' option. This location can be updated as wished, but do not move anything 
+#'-i' option. This location can be updated as wished, but do not move anything
 #after running this script, or do so at your own risks!
 
 FORCE_INSTALL_NETCDF=false
@@ -117,21 +117,21 @@ fi
 #Check if $INSTALLZ_DIR is an absolute path
 
 #-------------------------------------------------------------------------------
-#Print options on standard output 
+#Print options on standard output
 #-------------------------------------------------------------------------------
 echo "Installing RAPID prereqs in: $INSTALLZ_DIR"
 
-if $FORCE_INSTALL_NETCDF ; then 
-     echo "Forcing reinstallation of netCDF even if its directory exists." 
-else 
-     echo "Not forcing reinstallation of netCDF if its directory exists." 
-fi 
+if $FORCE_INSTALL_NETCDF ; then
+     echo "Forcing reinstallation of netCDF even if its directory exists."
+else
+     echo "Not forcing reinstallation of netCDF if its directory exists."
+fi
 
-if $FORCE_INSTALL_PETSC ; then 
-     echo "Forcing reinstallation of PETSc even if its directory exists." 
-else 
-     echo "Not forcing reinstallation of PETSc if its directory exists." 
-fi 
+if $FORCE_INSTALL_PETSC ; then
+     echo "Forcing reinstallation of PETSc even if its directory exists."
+else
+     echo "Not forcing reinstallation of PETSc if its directory exists."
+fi
 
 
 #*******************************************************************************
@@ -143,20 +143,20 @@ fi
 #-------------------------------------------------------------------------------
 cd $INSTALLZ_DIR
 
-if $FORCE_INSTALL_NETCDF ; then 
-    rm -rf netcdf-c-4.7.3
+if $FORCE_INSTALL_NETCDF ; then
+    rm -rf netcdf-c-4.8.1
     rm -rf netcdf-fortran-4.5.2
     rm -rf netcdf-install
 fi
 #Remove old netCDF directories if FORCE_INSTALL_NETCDF
 
-if [ ! -f netcdf-c-4.7.3.tar.gz ] && [ ! -d netcdf-c-4.7.3 ]; then
-    wget -nc -O netcdf-c-4.7.3.tar.gz https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.7.3.tar.gz
+if [ ! -f netcdf-c-4.8.1.tar.gz ] && [ ! -d netcdf-c-4.8.1 ]; then
+    wget -nc -O netcdf-c-4.8.1.tar.gz https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.8.1.tar.gz
 fi
 #Download netCDF installation file if it does not exist
 
-if [ ! -d netcdf-c-4.7.3 ]; then
-    tar -xzf netcdf-c-4.7.3.tar.gz
+if [ ! -d netcdf-c-4.8.1 ]; then
+    tar -xzf netcdf-c-4.8.1.tar.gz
 fi
 #Extract netCDF installation file if directory does not exist
 
@@ -172,7 +172,7 @@ fi
 
 if [ ! -d netcdf-install ]; then
     mkdir -p netcdf-install
-    cd netcdf-c-4.7.3
+    cd netcdf-c-4.8.1
     ./configure CC=gcc                                                         \
                 CPPFLAGS=-I/usr/lib/x86_64-linux-gnu/hdf5/serial/include       \
                 LDFLAGS=-L/usr/lib/x86_64-linux-gnu/hdf5/serial/lib            \
@@ -201,7 +201,7 @@ fi
 #-------------------------------------------------------------------------------
 cd $INSTALLZ_DIR
 
-if $FORCE_INSTALL_PETSC ; then 
+if $FORCE_INSTALL_PETSC ; then
     rm -rf petsc-3.13.0
 fi
 #Remove old PETSc directories if FORCE_INSTALL_PETSC
